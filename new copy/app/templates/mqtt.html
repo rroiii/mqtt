@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT Configuration</title>
+</head>
+<body>
+    <h2>MQTT Configuration</h2>
+
+    <h3>Choose Data Source:</h3>
+    <form action="/update_data_source" method="post">
+        <label for="source_mqtt">MQTT</label>
+        <input type="radio" id="source_mqtt" name="data_source" value="mqtt" {% if data_source == 'mqtt' %}checked{% endif %}><br><br>
+
+        <label for="source_manual">Manual Input</label>
+        <input type="radio" id="source_manual" name="data_source" value="manual" {% if data_source == 'manual' %}checked{% endif %}><br><br>
+
+        <button type="submit">Update Data Source</button>
+    </form>
+
+        <!-- Menampilkan informasi broker MQTT saat ini -->
+        <h3>Current MQTT Broker Information:</h3>
+        <ul>
+            <li><strong>URL:</strong> {{ mqtt_url }}</li>
+            <li><strong>Port:</strong> {{ mqtt_port }}</li>
+            <li><strong>Username:</strong> {{ mqtt_username or "N/A" }}</li>
+            <li><strong>Password:</strong> {{ mqtt_password or "N/A" }}</li>
+            <li><strong>Status:</strong> {{ status }}</li>
+        </ul>
+
+    <!-- Form untuk mengubah konfigurasi MQTT -->
+    <form action="/update_mqtt" method="post">
+        <label for="mqtt_url">MQTT URL:</label>
+        <input type="text" id="mqtt_url" name="mqtt_url" value="{{ mqtt_url }}" required><br><br>
+        
+        <label for="mqtt_port">MQTT Port:</label>
+        <input type="number" id="mqtt_port" name="mqtt_port" value="{{ mqtt_port }}" required><br><br>
+        
+        <label for="mqtt_username">MQTT Username:</label>
+        <input type="text" id="mqtt_username" name="mqtt_username" value="{{ mqtt_username }}"><br><br>
+        
+        <label for="mqtt_password">MQTT Password:</label>
+        <input type="password" id="mqtt_password" name="mqtt_password" value="{{ mqtt_password }}"><br><br>
+
+        <button type="submit">Update MQTT Connection</button>
+    </form>
+
+    <form action="/iot_data" method="post">
+        <label for=""heart_rate>Heart Rate:</label>
+        <input type="number" id="heart_rate" name="heart_rate" required><br><br>
+
+        <label for=""temperature>Temperature:</label>
+        <input type="number" id="temperature" name="temperature" required><br><br>
+
+        <label for=""position>Position:</label>
+        <input type="text" id="position" name="position" required><br><br>
+
+        <label for="location"></label>
+        <input type="text" id="location" name="location" required><br><br>
+        
+        <button type="submit">Publish</button>
+    </form>
+    <!-- Menampilkan status MQTT -->
+    <h3>MQTT Connection Status: {{ status }}</h3>
+
+</body>
+</html>
